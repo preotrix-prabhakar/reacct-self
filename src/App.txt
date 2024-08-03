@@ -1,0 +1,216 @@
+// conditional rendering
+
+import About from "./components/About"
+import Blog from "./components/Blog";
+import Contact from "./components/Contact"
+function App(){
+  var visible = true;
+  return (
+    <>
+     <h1>React App</h1>
+     {visible ? <About/>:<Contact/>}
+     {visible && <Blog/>}
+    </>
+  )
+}
+
+// export {App}
+export default App
+
+
+//props 
+import React from 'react'
+import Contact from './components/Contact'
+import Adfar from './components/Adfar'
+import Section from './components/Section'
+var fName = "Adfar"
+export default function App() {
+  return (
+    <div>
+      <h1>App component</h1>
+      <Section rollno="1" Marks="90" subject="Math">
+        <Adfar/>
+      </Section>
+      {/* <Adfar>
+        <h1>Adfar is a MERN instructor</h1>
+        <h1>Adfar is a MERN instructor</h1>
+        <h1>Adfar is a MERN instructor</h1>
+        <h1>Adfar is a MERN instructor</h1>
+      </Adfar> */}
+      {/* <Contact firstName={fName} age="28" salary="5000"/>
+      <Contact firstName="Shubham" age="25" salary="10000"/>
+      <Contact firstName="Aditya" age="26" /> */}
+
+    </div>
+  )
+}
+
+
+//state code 
+import React, { useState } from 'react'
+
+export default function App() {
+  const [count,setCount] = useState(0)
+  const [bgColor,setBgColor] = useState("red")
+  console.log("adfar")
+  function handleIncrement(){
+    setCount(count+1)
+  }
+  return (
+    <div style={{backgroundColor:bgColor}}>
+      <h1>Count :{count}</h1>
+      <button onClick={()=>setBgColor("blue")}>Blue</button>
+      <button onClick={()=>setBgColor("green")}>Green</button>
+      <button onClick={()=>handleIncrement()}>Add One</button>
+    </div>
+  )
+}
+
+
+//normal theme changer 
+import React, { useState } from 'react'
+
+export default function App() {
+  const [bgColor,setBgColor] = useState("white");
+  const [color,setColor] = useState("black")
+  const [text,setText] = useState("Dark")
+  function handleBackground(){
+     if(bgColor === "black"){
+      setBgColor("white")
+      setColor("black")
+      setText("Dark")
+     } else {
+      setBgColor("black")
+      setColor("white")
+      setText("Light")
+     }
+  }
+  return (
+    <div style={{backgroundColor:bgColor,color:color}}>
+      <h1>Hello, world!</h1>
+      <p>This is a React app.</p>
+      <button onClick={handleBackground}>{text} Mode</button>
+    </div>
+  )
+}
+
+
+//themechanger 2
+import React, { useState } from 'react'
+
+export default function App() {
+  const [condition,setCondition] = useState(false)
+  function handleBackground(){
+    setCondition(!condition)
+  }
+  return (
+    <div style={{backgroundColor:condition?"black":"white",color:condition?"white":"black"}}>
+      <h1>Hello, world!</h1>
+      <p>This is a React app.</p>
+      <button onClick={handleBackground}>{condition?"Light":"Dark"} Mode</button>
+    </div>
+  )
+}
+
+import React, { useState } from 'react'
+
+export default function App() {
+  const [count,setCount] = useState(0)
+  function handleIncrement(){
+    setCount((a)=>a+1)
+    setCount((a)=>a+1)
+    setCount((a)=>a+1)
+    setCount((a)=>a+1)
+    setCount(count+1)
+    setCount((a)=>a+1)    
+  }
+  return (
+    <div>
+       <h1>count: {count}</h1>
+       
+       <button onClick={handleIncrement}>Increment</button>
+    </div>
+  )
+}
+
+//controlled component
+import React, { useState } from 'react'
+
+export default function App() {
+  const [name,setName] = useState("")
+  const [email,setEmail] = useState("")
+  const [pass,setPass] = useState("")
+  const [conditin,setcondition] = useState(false)
+  function handleSubmit(e){
+    e.preventDefault()
+    setcondition(true)
+  }
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="text" 
+        value={name} onChange={(e)=>setName(e.target.value)}/>
+        <input type="email" 
+        value={email} onChange={(e)=>setEmail(e.target.value)}/>
+        <input type="password" 
+        value={pass} onChange={(e)=>setPass(e.target.value)}/>
+        <button type="submit">Submit</button>
+      </form>
+      {conditin && <h1>{name} {email} {pass}</h1>}
+    </div>
+  )
+}
+
+
+import React, { useState } from 'react'
+
+export default function App() {
+  const [inputs,setInputs] = useState({
+    name:"Adfar",
+    email:"ad@ad.com",
+    pass:"123",
+  })
+ 
+  const [conditin,setcondition] = useState(false)
+  function handleSubmit(e){
+    e.preventDefault()
+    setcondition(true)
+  }
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="text" 
+        value={inputs.name} 
+        onChange={(e)=>setInputs((prev)=>({...prev,name:e.target.value}))}/>
+        <input type="email" 
+        value={inputs.email} 
+        onChange={(e)=>setInputs((prev)=>({...prev,email:e.target.value}))}/>
+        <input type="password" 
+        value={inputs.pass} 
+        onChange={(e)=>setInputs((prev)=>({...prev,pass:e.target.value}))}/>
+        <button type="submit">Submit</button>
+      </form>
+     <h1>{inputs.name} {inputs.email} {inputs.pass}</h1>
+    </div>
+  )
+}
+//joke generator
+import React, { useEffect, useState } from 'react'
+import JokeGEnerator from './components/JokeGEnerator'
+
+export default function App() {
+  const [count,setCount] = useState(0)
+  const [number,setNumber] = useState(100)
+  useEffect(()=>{
+      console.log("adfar")
+  },[count])
+  return (
+    <div>
+      <JokeGEnerator/>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>+</button>
+      <h1>Number :{number}</h1>
+      <button onClick={() => setNumber(number - 1)}>-----</button>
+    </div>
+  )
+}
